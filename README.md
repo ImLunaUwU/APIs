@@ -19,7 +19,7 @@ After=network.target
 [Service]
 User=luna
 WorkingDirectory=/home/luna
-ExecStart=/usr/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 sysmonitor:app
+ExecStart=/usr/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 api:app
 Restart=always
 
 [Install]
@@ -27,7 +27,8 @@ WantedBy=multi-user.target
 ```
 Replace `luna` with your actual username in the `User=` field.\
 Replace `/home/luna` with your actual working direcory in the `WorkingDirectory=` field.\
-Replace `0.0.0.0:5000` with your actual bind port in the `ExecStart=` field.
+Replace `0.0.0.0:5000` with your actual bind port in the `ExecStart=` field.\
+Replace `api:app` with your actual API name in the `ExecStart=` field, using the format `apiPythonFileName:app`. You should not include `.py` here.
 
 4. Reload Systemd and enable the Service:\
 ```sudo systemctl daemon-reload```\
@@ -37,4 +38,5 @@ Replace `0.0.0.0:5000` with your actual bind port in the `ExecStart=` field.
 `sudo systemctl start api.service`\
 `sudo systemctl status api.service`
 
-If everything was done correctly, you should now have a working API server.
+If everything was done correctly, you should now have a working API server.\
+This API server would also start when your machine boots, right after network, assuming you'll be using the service template provided here.

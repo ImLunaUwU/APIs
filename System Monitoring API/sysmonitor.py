@@ -2,8 +2,10 @@ import os
 import psutil
 import time
 from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='/var/www/sysmonitor')
+CORS(app)  # Enable CORS for all routes
 
 def get_system_details():
     cpu_percent = psutil.cpu_percent(interval=None, percpu=False)
