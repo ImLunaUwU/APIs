@@ -2,6 +2,9 @@
 These are any APIs I might create. More often than not, it's gonna be used on lunauwu.net.
 Please note: These python scripts are ***DEVELOPMENT SERVERS***, as such they can be reworked by you to fit your needs. The development server is designed for testing and debugging purposes and is not as performant and secure as a production-ready WSGI server like Gunicorn or uWSGI.
 
+### Please note: There's like a 99% chance you'll need to run these behind a reverse proxy of some sort to have them work with websites reliably.
+### I do not have the mental capacity to explain all that right now, as I have yet to sleep. Ask me nicely on Discord, @imlunauwu, and I might explain it to you.
+
 # Step by step guide to set up API servers up using Gunicorn:
 
 1. Install Gunicorn:\
