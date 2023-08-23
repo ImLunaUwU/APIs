@@ -12,4 +12,8 @@ Other than that, have fun.
 
 Example for including the API data on a website has been included in /index.html
 
+Get an API key at https://steamcommunity.com/dev/apikey
+
+If this key gets exposed to the public your Steam account could be in danger. 
+
 Note: Luna is not responsible for your account safety nor does she assure this is allowed to do per Steam's TOS. Luna is ***not*** afiliated with Steam, nor Valve.
