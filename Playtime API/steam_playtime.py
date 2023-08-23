@@ -6,6 +6,20 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+def get_game_images(app_ids):
+    app_images = {}
+
+    for app_id in app_ids:
+        url = f'https://store.steampowered.com/api/appdetails?appids={app_id}'
+        response = requests.get(url)
+        data = response.json()
+
+        if app_id in data and 'data' in data[app_id] and 'header_image' in data[app_id]['data']:
+            app_images[app_id] = data[app_id]['data']['header_image']
+
+    return app_images
+
+
 @app.route('/playtime')
 def get_playtime():
     API_KEY = config('STEAM_API_KEY')
@@ -17,11 +31,23 @@ def get_playtime():
 
     playtime_data = {}
 
+    app_ids = {
+        '438100': 'vrchat',
+        '620980': 'beat_saber'
+        # Add more app IDs and names as needed
+    }
+
     for game in data['response']['games']:
-        if game['appid'] == 438100:  # VRChat's app ID
-            playtime_data['vrchat'] = game['playtime_forever']
-        elif game['appid'] == 620980:  # Beat Saber's app ID
-            playtime_data['beat_saber'] = game['playtime_forever']
+        app_id = str(game['appid'])
+        if app_id in app_ids:
+            playtime_data[app_ids[app_id]] = {
+                'playtime': game['playtime_forever']
+            }
+
+    game_images = get_game_images(app_ids.keys())
+    for app_id, app_name in app_ids.items():
+        if app_id in game_images:
+            playtime_data[app_name]['image'] = game_images[app_id]
 
     return jsonify(playtime_data)
 

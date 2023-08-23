@@ -1,0 +1,36 @@
+    <script>
+      fetch('https://api.lunauwu.net/playtime')
+          .then(response => response.json())
+          .then(data => {
+              // Update VRChat playtime
+              const vrcPlaytimeElement = document.getElementById('vrc-playtime');
+              vrcPlaytimeElement.textContent = `Hours on record: ${(data.vrchat.playtime / 60).toFixed(1)} hours`;
+
+              // Update VRChat image
+              const vrcImageElement = document.getElementById('vrc-image');
+              vrcImageElement.src = data.vrchat.image;
+
+              // Update Beat Saber playtime
+              const bsPlaytimeElement = document.getElementById('bs-playtime');
+              bsPlaytimeElement.textContent = `Hours on record: ${(data.beat_saber.playtime / 60).toFixed(1)} hours`;
+
+              // Update Beat Saber image
+              const bsImageElement = document.getElementById('bs-image');
+              bsImageElement.src = data.beat_saber.image;
+          })
+          .catch(error => {
+              console.error('Error fetching playtime data:', error);
+          });
+  </script>
+
+
+  <div class="image-container">
+    <img id="vrc-image" src="https://beta.lunauwu.net/assets\image\loading.png" alt="VRChat">
+      <p class="playtime-text" id="vrc-playtime">Loading...</p>
+  </div>
+  <div class="image-container">
+    <h3 class="image-title">Beat Saber, a rythm game.</h3>
+    <img id="bs-image" src="https://beta.lunauwu.net/assets\image\loading.png" alt="Beat Saber">
+    <div class="caption-box">
+      <p class="playtime-text" id="bs-playtime">Loading...</p>
+  </div>
